@@ -45,5 +45,25 @@ public class colBall implements Ball {
 
     public double getRadius() {return radius;}
 
+    @Override
+    public void setX(double x) {
+        this.xPos = x;
+    }
+
+    @Override
+    public void setY(double y) {
+        this.yPos = y;
+    }
+
+    @Override
+    public void setxVel(double xVel) {
+        this.xVel = xVel;
+    }
+
+    @Override
+    public void setyVel(double yVel) {
+        this.yVel = yVel;
+    }
+
     public void setRadius(double raidus) {this.radius = radius;}
 }

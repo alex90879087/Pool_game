@@ -8,5 +8,9 @@ public interface Ball {
     double getyVel();
     double getMass();
     double getRadius();
+    void setX(double x);
+    void setY(double y);
+    void setxVel(double xVel);
+    void setyVel(double yVel);
     String getCol();
 }

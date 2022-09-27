@@ -109,7 +109,6 @@ public class Reader {
 
         Reader asd = new Reader();
 
-        System.out.println(asd.parseBall().size());
     }
 
 }

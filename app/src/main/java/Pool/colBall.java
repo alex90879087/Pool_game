@@ -10,7 +10,7 @@ public class colBall implements Ball {
     private double xVel;
     private double yVel;
     private double mass;
-    private double radius = 20;
+    private double radius = 12;
     private Paint colour;
     private String col;
 
@@ -44,4 +44,6 @@ public class colBall implements Ball {
     public Paint getColour() {return this.colour;}
 
     public double getRadius() {return radius;}
+
+    public void setRadius(double raidus) {this.radius = radius;}
 }

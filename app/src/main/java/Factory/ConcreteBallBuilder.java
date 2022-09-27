@@ -19,6 +19,7 @@ public class ConcreteBallBuilder implements BallBuilder {
     @Override
     public void reset() {}
 
+
     @Override
     public void setX(double x) {
         this.xPos = x;
@@ -48,6 +49,7 @@ public class ConcreteBallBuilder implements BallBuilder {
     public void setColour(String colour) {
         this.col = colour;
     }
+
 
     public Ball build() {
         return new colBall(xPos, yPos, xVel, yVel, mass, col);

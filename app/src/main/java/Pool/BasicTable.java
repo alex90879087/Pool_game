@@ -15,6 +15,8 @@ public class BasicTable implements Table {
     private Paint colour;
     private String col;
 
+    // ratio of ball and table -> to decide radius
+    public  double ratio = (262 * 150) / (Math.pow(5.715, 2) * Math.PI) ;
     private double friction;
     private Long sizeX;
     private Long sizeY;
@@ -31,6 +33,9 @@ public class BasicTable implements Table {
         this.col = col;
         this.colour = Paint.valueOf(col);
         balls = parseBall();
+        for (Ball ball: this.balls) {
+            ((colBall) ball).setRadius();
+        }
     }
 
     public double getFriction() { return this.friction;}
@@ -46,6 +51,8 @@ public class BasicTable implements Table {
     public String getCol() {
         return col;
     }
+
+    public Paint getColour() {return colour;}
 
 
 

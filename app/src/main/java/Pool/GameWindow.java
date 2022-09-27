@@ -24,8 +24,8 @@ public class GameWindow {
     GameWindow(BasicTable table){
         this.model =  table;
         this.pane = new Pane();
-        this.scene = new Scene(this.pane, this.length, this.width);
-        Canvas canvas = new Canvas(this.length, this.width);
+        this.scene = new Scene(this.pane, table.getX(), table.getY());
+        Canvas canvas = new Canvas(table.getX(),  table.getY());
         gc = canvas.getGraphicsContext2D();
         pane.getChildren().add(canvas);
     }
@@ -42,9 +42,12 @@ public class GameWindow {
 
         gc.clearRect(0,0, this.length, this.width);
 
+        gc.setFill(model.getColour());
+        gc.fillRect(0,0, model.getX(),model.getY());
+
+
         for (Ball ball: model.getBalls()){
-            ball = (colBall) ball;
-            ((colBall) ball).getColour();
+            gc.setFill(((colBall) ball).getColour());
             gc.fillOval(ball.getX() - ball.getRadius(),
                     ball.getY() - ball.getRadius(),
                     ball.getRadius() * 2,

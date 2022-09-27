@@ -16,7 +16,7 @@ public class BasicBallFactory implements BallFactory {
         cb.setX(x);
         cb.setY(y);
         cb.setxVel(xVel);
-        cb.setY(yVel);
+        cb.setyVel(yVel);
         cb.setMass(mass);
         cb.setColour(col);
 

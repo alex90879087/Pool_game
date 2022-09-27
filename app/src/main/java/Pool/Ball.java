@@ -7,5 +7,6 @@ public interface Ball {
     double getxVel();
     double getyVel();
     double getMass();
+    double getRadius();
     String getCol();
 }

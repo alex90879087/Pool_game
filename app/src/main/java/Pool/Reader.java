@@ -16,18 +16,18 @@ import java.util.Locale;
 public class Reader {
 
     private BallBuilder builder;
-    private String path = "Database/config.json";
+    private static String path = "Database/config.json";
 
     public List<Ball> getBalls() {return balls;}
 
-    private List<Ball> balls = new ArrayList<>();
+    private static List<Ball> balls = new ArrayList<>();
 
-    public Table parseTable() {
+    public static Table parseTable() {
 
         JSONParser parser = new JSONParser();
 
         try{
-            Object obj = parser.parse(new FileReader(this.path));
+            Object obj = parser.parse(new FileReader(path));
 
             JSONObject jobj = (JSONObject) obj;
 
@@ -37,9 +37,9 @@ public class Reader {
 
             Double tableFriction = (Double) jTable.get("friction");
 
-            Double tableX = (Double) ((JSONObject) jTable.get("size")).get("x");
+            Long tableX = (Long) ((JSONObject) jTable.get("size")).get("x");
 
-            Double tableY = (Double) ((JSONObject) jTable.get("size")).get("y");
+            Long tableY = (Long) ((JSONObject) jTable.get("size")).get("y");
 
             TableFactory tableF = new BasicTableFactory();
 
@@ -56,7 +56,7 @@ public class Reader {
         return null;
     }
 
-    public List<Ball> parseBall() {
+    public static List<Ball> parseBall() {
 
         // initialise a new arraylist here to avoid duplicate calling
         balls = new ArrayList<>();

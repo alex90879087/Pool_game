@@ -4,5 +4,5 @@ import Pool.Table;
 
 public interface TableFactory {
 
-    Table create(double x, double y, double friction, String colour);
+    Table create(Long x, Long y, double friction, String colour);
 }

@@ -41,7 +41,7 @@ public class colBall implements Ball {
 
     public double getMass() {return mass;}
 
-    public static void main(String[] args) {
-        colBall asd = new colBall(1,2,3,4,5, "WHITE");
-    }
+    public Paint getColour() {return this.colour;}
+
+    public double getRadius() {return radius;}
 }

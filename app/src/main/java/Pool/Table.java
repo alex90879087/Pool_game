@@ -2,8 +2,8 @@ package Pool;
 
 public interface Table {
 
-    double getX();
-    double getY();
+    Long getX();
+    Long getY();
     double getFriction();
     String getCol();
 }

@@ -3,9 +3,25 @@
  */
 package Pool;
 
-public class App {
+import javafx.application.Application;
+import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 
-    public static void main(String[] args) {
+import static Pool.Reader.parseTable;
 
+
+public class App extends Application {
+
+    public static void main(String[] args) {launch(args);}
+
+    @Override
+    public void start(Stage primaryStage) {
+        GameWindow window = new GameWindow((BasicTable) parseTable());
+        window.run();
+        primaryStage.setTitle("Pool game");
+        primaryStage.setScene(window.getScene());
+        primaryStage.show();
+
+        window.run();
     }
 }

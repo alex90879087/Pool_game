@@ -7,30 +7,39 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import static Pool.Reader.parseBall;
+import static Pool.Reader.parseTable;
+
 public class BasicTable implements Table {
 
     private Paint colour;
-    private double friction;
-    private double sizeX;
-
-    private double sizeY;
     private String col;
 
-    public BasicTable(double sizeX, double sizeY, double friction, String col){
+    private double friction;
+    private Long sizeX;
+    private Long sizeY;
+    private List<Ball> balls;
+
+    public List<Ball> getBalls() {
+        return balls;
+    }
+
+    public BasicTable(Long sizeX, Long sizeY, double friction, String col){
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.friction = friction;
         this.col = col;
         this.colour = Paint.valueOf(col);
+        balls = parseBall();
     }
 
     public double getFriction() { return this.friction;}
 
-    public double getX() {
+    public Long getX() {
         return sizeX;
     }
 
-    public double getY() {
+    public Long getY() {
         return sizeY;
     }
 
@@ -38,4 +47,8 @@ public class BasicTable implements Table {
         return col;
     }
 
+
+
+    public static void main(String[] args) {
+    }
 }

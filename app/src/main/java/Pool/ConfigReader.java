@@ -96,7 +96,7 @@ public class ConfigReader {
 		}
 		// parse the file:
 		ConfigReader.parse(configPath);
-
+		System.out.println(1);
 	}
 
 }

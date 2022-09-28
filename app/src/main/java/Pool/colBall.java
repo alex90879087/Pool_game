@@ -73,4 +73,10 @@ public class colBall implements Ball {
     }
 
     public void setRadius(double raidus) {this.radius = radius;}
+
+    public void move(double friction) {
+        System.out.println(this.getxVel());
+        this.setX((this.getX() + this.getxVel() / 60));
+        this.setY((this.getY() +  this.getyVel() / 60));
+    }
 }

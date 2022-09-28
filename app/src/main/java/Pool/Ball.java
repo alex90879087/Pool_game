@@ -14,4 +14,5 @@ public interface Ball {
     void setyVel(double yVel);
     boolean getMoving();
     String getCol();
+    void move(double friction);
 }

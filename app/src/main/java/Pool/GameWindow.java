@@ -10,6 +10,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 import javafx.application.Application;
@@ -19,6 +21,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameWindow {
@@ -37,6 +40,7 @@ public class GameWindow {
     private double startY;
 
     private colBall cueBall;
+    private List<Circle> pockets = new ArrayList<>();
 
 
 
@@ -50,7 +54,7 @@ public class GameWindow {
         gc = canvas.getGraphicsContext2D();
         this.cueBall = (colBall) this.model.getCueBall();
         this.balls = model.getBalls();
-
+        this.pockets = model.getPockets();
 
         // pane is the lowest level in the hierarchy in this case
         pane.getChildren().add(canvas);
@@ -126,6 +130,15 @@ public class GameWindow {
         gc.clearRect(0,0, width, height);
         gc.setFill(model.getColour());
         gc.fillRect(0,0, model.getX(),model.getY());
+
+
+        for (Circle c: this.pockets) {
+            gc.setFill(Paint.valueOf("BLACK"));
+            gc.fillOval(c.getCenterX() - c.getRadius(),
+                    c.getCenterY() - c.getRadius(),
+                    c.getRadius() * 2,
+                    c.getRadius() * 2);
+        }
 
 
         for (Ball ball: model.getBalls()){

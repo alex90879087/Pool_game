@@ -1,6 +1,7 @@
 package Pool;
 
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,9 @@ public class BasicTable implements Table {
     }
     public Ball getCueBall() {return this.cueBall;}
 
+    private List<Circle> pockets = new ArrayList<>();
+
+
     public BasicTable(Long sizeX, Long sizeY, double friction, String col){
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -43,7 +47,18 @@ public class BasicTable implements Table {
             if (ball.getY() + ball.getRadius() > this.sizeY) ball.setY(this.sizeY - ball.getRadius());
             if (ball.getY() - ball.getRadius() < 0) ball.setY(0 + ball.getRadius());
         }
+        Circle p1 = new Circle(0,0,40);
+        Circle p2 = new Circle(0,sizeY,40);
+        Circle p3 = new Circle(sizeX,sizeY,40);
+        Circle p4 = new Circle(sizeX,0,40);
+        pockets.add(p1);
+        pockets.add(p2);
+        pockets.add(p3);
+        pockets.add(p4);
+
     }
+
+    public List<Circle> getPockets() {return pockets;}
 
     public double getFriction() { return this.friction;}
 

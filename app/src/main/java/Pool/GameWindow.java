@@ -56,14 +56,30 @@ public class GameWindow {
 
 //                  can only click cue ball when it is not moving
                     pane.setOnMousePressed(e -> {
-                        startX = e.getX();
-                        startY = e.getY();
+                        currentLine = new Line(e.getX(), e.getY(), e.getX(), e.getY());
+                        pane.getChildren().add(currentLine);
                     });
 
-                    pane.setOnMouseDragged(e -> {
-                        if (cueBall.getMoving() == false) {
 
+                    pane.setOnMouseDragged(e -> {
+                        System.out.println(cueBall.getMoving());
+                        if (cueBall.getMoving() == false) {
+                            if (currentLine == null) {
+                                currentLine = new Line();
+                                currentLine.setStartX(startX);
+                                currentLine.setStartY(startY);
+                            }
+                            else {
+                                currentLine.setEndX(e.getX());
+                                currentLine.setEndY(e.getY());
+                            }
                         }
+                    });
+
+                    pane.setOnMouseReleased(e -> {
+                        double distance = Math.hypot(startX - e.getX(), startY - e.getY());
+                        System.out.println(distance);
+                        pane.getChildren().remove(currentLine);
                     });
 
 
@@ -72,6 +88,11 @@ public class GameWindow {
 
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+    public void shoot(double distance) {
+        // distance of start and end point is used to calcualte the power of the shot
+
     }
 
     private void initDraw(GraphicsContext gc, double x, double y) {

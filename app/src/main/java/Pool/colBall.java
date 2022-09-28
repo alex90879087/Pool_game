@@ -30,7 +30,7 @@ public class colBall implements Ball {
     public void setMoving(boolean moving) {this.moving = moving;}
 
     public boolean getMoving() {
-        return (xVel == 0 && yVel == 0) ? true : false;
+        return (xVel == 0 && yVel == 0) ? false : true;
     }
 
     @Override

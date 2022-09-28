@@ -1,10 +1,11 @@
-package Pool;
-
+import Pool.Ball;
 import javafx.scene.paint.Paint;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Locale;
 
-public class colBall implements Ball {
+public class Cue implements Ball, MouseListener {
     private double xPos;
     private double yPos;
     private double xVel;
@@ -13,10 +14,11 @@ public class colBall implements Ball {
     private double radius = 12;
     private Paint colour;
     private String col;
+
     private boolean moving;
 
 
-    public colBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
+    public Cue (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xVel = xVel;
@@ -25,12 +27,6 @@ public class colBall implements Ball {
         this.colour = Paint.valueOf(colour.toUpperCase(Locale.ROOT));
         this.col = colour;
         moving = false;
-    }
-
-    public void setMoving(boolean moving) {this.moving = moving;}
-
-    public boolean getMoving() {
-        return (xVel == 0 && yVel == 0) ? true : false;
     }
 
     @Override
@@ -72,5 +68,35 @@ public class colBall implements Ball {
         this.yVel = yVel;
     }
 
+    @Override
+    public boolean getMoving() {
+        return false;
+    }
+
     public void setRadius(double raidus) {this.radius = radius;}
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

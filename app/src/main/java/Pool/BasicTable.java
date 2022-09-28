@@ -21,10 +21,12 @@ public class BasicTable implements Table {
     private Long sizeX;
     private Long sizeY;
     private List<Ball> balls;
+    private Ball cueBall;
 
     public List<Ball> getBalls() {
         return balls;
     }
+    public Ball getCueBall() {return this.cueBall;}
 
     public BasicTable(Long sizeX, Long sizeY, double friction, String col){
         this.sizeX = sizeX;
@@ -34,6 +36,7 @@ public class BasicTable implements Table {
         this.colour = Paint.valueOf(col);
         balls = parseBall();
         for (Ball ball: this.balls) {
+            if (ball.getCol().equalsIgnoreCase("white")) cueBall = ball;
             ((colBall) ball).setRadius(Math.sqrt(this.sizeX * this.sizeY / ratio));
             if (ball.getX() + ball.getRadius() > this.sizeX) ball.setX(this.sizeX - ball.getRadius());
             if (ball.getX() - ball.getRadius() < 0) ball.setX(0 + ball.getRadius());

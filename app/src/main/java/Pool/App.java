@@ -17,7 +17,6 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         GameWindow window = new GameWindow((BasicTable) parseTable());
-        window.run();
         primaryStage.setTitle("Pool game");
         primaryStage.setScene(window.getScene());
         primaryStage.show();

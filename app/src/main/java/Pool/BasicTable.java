@@ -63,6 +63,5 @@ public class BasicTable implements Table {
 
 
 
-    public static void main(String[] args) {
-    }
+
 }

@@ -68,9 +68,7 @@ public class GameWindow {
                             currentLine = new Line(e.getX(), e.getY(), e.getX(), e.getY());
                             pane.getChildren().add(currentLine);
                         }
-
                     });
-
 
                     pane.setOnMouseDragged(e -> {
                         if (cueBall.getMoving() == false) {
@@ -93,10 +91,6 @@ public class GameWindow {
                             pane.getChildren().remove(currentLine);
                         }
                     });
-
-                    if (cueBall.getMoving()) cueBall.move(model.getFriction());
-
-
                 }));
 
 
@@ -104,12 +98,19 @@ public class GameWindow {
         timeline.play();
     }
 
+    void moves() {
+        for (Ball ball: balls) {
+            if (ball.getMoving()) ball.move(model.getFriction());
+        }
+    }
+
     // distance of start and end point is used to calculate the power of the shot
     public void shoot(double distance) {
 
-        double power = (distance < 250) ? 1.5 : (distance < 450) ? 2 : 2.5;
+        // power of the shot
+        double power = (distance < 250) ? 2.5 : (distance < 450) ? 3 : 3.5;
 
-        // direction of the mouse dragging (complex number's vector)
+        // direction of the mouse dragging (complex number vector)
         this.cueBall.setyVel((-(currentLine.getEndY() - currentLine.getStartY())) / 5 * power);
         this.cueBall.setxVel((-(currentLine.getEndX() - currentLine.getStartX())) / 5 * power);
 
@@ -120,6 +121,8 @@ public class GameWindow {
 
         tick();
         SlowDown(this.model.getFriction());
+        moves();
+
         gc.clearRect(0,0, width, height);
         gc.setFill(model.getColour());
         gc.fillRect(0,0, model.getX(),model.getY());
@@ -142,7 +145,6 @@ public class GameWindow {
 
         for(Ball ball: balls) {
 
-            // Handle the edges (balls don't get a choice here)
             if (ball.getX() + ball.getRadius() > width) {
                 ball.setX(width - ball.getRadius());
                 ball.setxVel(ball.getxVel() * -1);
@@ -162,7 +164,6 @@ public class GameWindow {
 
             for(Ball ballB: balls) {
                 if (checkCollision(ball, ballB)) {
-//                    System.out.println("collided");
                     handleCollision(ball, ballB);
                 }
             }

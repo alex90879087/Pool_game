@@ -10,6 +10,7 @@ public class BasicBallFactory implements BallFactory {
     public BasicBallFactory(ConcreteBallBuilder cb) {
         this.cb = cb;
     }
+
     @Override
     public Ball create(double x, double y, double xVel, double yVel, double mass, String col) {
 

@@ -51,11 +51,14 @@ public class BasicTable implements Table {
         Circle p2 = new Circle(0,sizeY,40);
         Circle p3 = new Circle(sizeX,sizeY,40);
         Circle p4 = new Circle(sizeX,0,40);
+        Circle p5 = new Circle(sizeX / 2,0,30);
+        Circle p6 = new Circle(sizeX / 2,sizeY,30);
         pockets.add(p1);
         pockets.add(p2);
         pockets.add(p3);
         pockets.add(p4);
-
+        pockets.add(p5);
+        pockets.add(p6);
     }
 
     public List<Circle> getPockets() {return pockets;}

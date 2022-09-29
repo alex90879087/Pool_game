@@ -63,12 +63,13 @@ public class GameWindow {
     void run() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(17),
                 a -> {
-                    this.draw();
 
+                    this.draw();
 
 //                  can only click cue ball when it is not moving
                     pane.setOnMousePressed(e -> {
                         if (cueBall.getMoving() == false) {
+                            System.out.println("Testing");
                             currentLine = new Line(e.getX(), e.getY(), e.getX(), e.getY());
                             pane.getChildren().add(currentLine);
                         }
@@ -122,6 +123,15 @@ public class GameWindow {
 
 
     private void draw() {
+
+        for (Ball ball: balls) {
+            if (ball.getMoving()) {
+                for (Circle pocket: pockets) {
+                    if (pocket.contains(ball.getX(), ball.getY())) {
+                    }
+                }
+            }
+        }
 
         tick();
         SlowDown(this.model.getFriction());
@@ -275,4 +285,15 @@ public class GameWindow {
         ballB.setyVel(ballB.getyVel() + deltaVB.getY());
     }
 
+    void inPocket() {
+
+        for (Ball ball: balls) {
+            if (ball.getMoving()) {
+                for (Circle pocket: pockets) {
+                    if (pocket.contains(ball.getX(), ball.getY())) {
+                    }
+                }
+            }
+        }
+    }
 }

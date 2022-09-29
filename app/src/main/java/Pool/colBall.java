@@ -14,6 +14,7 @@ public class colBall implements Ball {
     private Paint colour;
     private String col;
     private boolean moving;
+    private Strategy strat;
 
 
     public colBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
@@ -25,6 +26,10 @@ public class colBall implements Ball {
         this.colour = Paint.valueOf(colour.toUpperCase(Locale.ROOT));
         this.col = colour;
         moving = false;
+
+        strat = (colour.equalsIgnoreCase("red")) ? new RedStrategy() :
+                (colour.equalsIgnoreCase("blue")) ? new BlueStrategy() : new WhiteStrategy();
+
     }
 
     public void setMoving(boolean moving) {this.moving = moving;}
@@ -77,5 +82,9 @@ public class colBall implements Ball {
     public void move(double friction) {
         this.setX((this.getX() + this.getxVel() / 60));
         this.setY((this.getY() +  this.getyVel() / 60));
+    }
+
+    public void executeStrat(){
+        strat.check(this);
     }
 }

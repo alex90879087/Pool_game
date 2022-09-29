@@ -18,7 +18,7 @@ public interface Ball {
     boolean getMoving();
     String getCol();
     void move(double friction);
-    void executeStrat();
+    void executeStrat(GameWindow g);
     double getOriginalX();
     double getOriginalY();
     void reset();

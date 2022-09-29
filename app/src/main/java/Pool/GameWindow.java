@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
+import static Pool.Reader.parseBall;
+
 public class GameWindow {
 
     private final GraphicsContext gc;
@@ -43,7 +45,8 @@ public class GameWindow {
     private colBall cueBall;
     private List<Circle> pockets = new ArrayList<>();
 
-
+    public List<Ball> getBalls() { return balls;}
+    public void setBalls(List<Ball> balls) {this.balls = balls;}
 
     GameWindow(BasicTable table){
         this.model =  table;
@@ -64,6 +67,8 @@ public class GameWindow {
     void run() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(17),
                 a -> {
+
+
 
                     this.draw();
 
@@ -98,9 +103,10 @@ public class GameWindow {
 
 
 
+
                 }));
 
-
+        System.out.println(111);
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
@@ -286,7 +292,7 @@ public class GameWindow {
                 if (ball.getMoving()) {
                     for (Circle pocket: pockets) {
                         if (pocket.contains(ball.getX(), ball.getY())) {
-                            ball.executeStrat();
+                            ball.executeStrat(this);
                             if (!ball.exist()) balls.remove(ball);
                         }
                     }
@@ -301,5 +307,9 @@ public class GameWindow {
                 x > cueBall.getX() - cueBall.getRadius()) &&
                (y < cueBall.getY() + cueBall.getRadius() &&
                 y > cueBall.getY() - cueBall.getRadius());
+    }
+
+    void reset() {
+        balls = parseBall();
     }
 }

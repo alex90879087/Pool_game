@@ -30,6 +30,7 @@ public class BasicTable implements Table {
     public Ball getCueBall() {return this.cueBall;}
 
     private List<Circle> pockets = new ArrayList<>();
+    private List<Ball> originalBalls;
 
 
     public BasicTable(Long sizeX, Long sizeY, double friction, String col){

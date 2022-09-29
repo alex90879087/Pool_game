@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BlueStrategy implements Strategy{
     @Override
-    public void check(Ball ball) {
+    public void check(Ball ball, GameWindow g) {
         ball = (colBall) ball;
 
         if (((colBall) ball).getCount() != 0) {

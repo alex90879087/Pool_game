@@ -37,6 +37,15 @@ public class GameWindow {
     private  double  width;
     private Line currentLine;
     private List<Ball> balls;
+    private boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     // to record the start position when click on the cue ball
     private double startX;
@@ -59,6 +68,7 @@ public class GameWindow {
         this.cueBall = (colBall) this.model.getCueBall();
         this.balls = model.getBalls();
         this.pockets = model.getPockets();
+        this.status = true;
 
         // pane is the lowest level in the hierarchy in this case
         pane.getChildren().add(canvas);
@@ -67,7 +77,6 @@ public class GameWindow {
     void run() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(17),
                 a -> {
-
 
 
                     this.draw();
@@ -106,9 +115,13 @@ public class GameWindow {
 
                 }));
 
-        System.out.println(111);
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+        if (!status) {
+            System.out.println("Game over");
+            timeline.stop();
+        }
     }
 
     void moves() {
@@ -312,4 +325,6 @@ public class GameWindow {
     void reset() {
         balls = parseBall();
     }
+
+
 }

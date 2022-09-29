@@ -129,6 +129,11 @@ public class colBall implements Ball {
         return this.exist;
     }
 
+    public void setOriginalXY() {
+        this.xPos = originalX;
+        this.yPos = originalY;
+    }
+
 
 }
 

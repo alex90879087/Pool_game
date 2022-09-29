@@ -66,7 +66,7 @@ public class BasicTable implements Table {
 
         for (Ball ball: this.balls) {
             findCueBall();
-            ((colBall) ball).setRadius(Math.sqrt(this.sizeX * this.sizeY / ratio));
+            ((ColBall) ball).setRadius(Math.sqrt(this.sizeX * this.sizeY / ratio));
             if (ball.getX() + ball.getRadius() > this.sizeX) ball.setX(this.sizeX - ball.getRadius());
             if (ball.getX() - ball.getRadius() < 0) ball.setX(0 + ball.getRadius());
             if (ball.getY() + ball.getRadius() > this.sizeY) ball.setY(this.sizeY - ball.getRadius());

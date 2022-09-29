@@ -43,7 +43,7 @@ public class GameWindow {
     private double startX;
     private double startY;
 
-    private colBall cueBall;
+    private ColBall cueBall;
     private List<Circle> pockets = new ArrayList<>();
 
     public List<Ball> getBalls() { return balls;}
@@ -57,7 +57,7 @@ public class GameWindow {
         this.scene = new Scene(this.pane, width, height);
         Canvas canvas = new Canvas(width,  height);
         gc = canvas.getGraphicsContext2D();
-        this.cueBall = (colBall) this.model.getCueBall();
+        this.cueBall = (ColBall) this.model.getCueBall();
         this.balls = model.getBalls();
         this.pockets = model.getPockets();
         this.status = model.getPlaying();
@@ -131,7 +131,7 @@ public class GameWindow {
     private void draw() {
 
         model.inPocket();
-        this.cueBall = (colBall) this.model.getCueBall();
+        this.cueBall = (ColBall) this.model.getCueBall();
         model.tick();
         model.SlowDown(this.model.getFriction());
         model.moves();
@@ -151,7 +151,7 @@ public class GameWindow {
 
 
         for (Ball ball: model.getBalls()){
-            gc.setFill(((colBall) ball).getColour());
+            gc.setFill(((ColBall) ball).getColour());
             gc.fillOval(ball.getX() - ball.getRadius(),
                     ball.getY() - ball.getRadius(),
                     ball.getRadius() * 2,

@@ -2,7 +2,7 @@ package Factory;
 
 import Factory.BallBuilder;
 import Pool.Ball;
-import Pool.colBall;
+import Pool.ColBall;
 
 public class ConcreteBallBuilder implements BallBuilder {
 
@@ -52,6 +52,6 @@ public class ConcreteBallBuilder implements BallBuilder {
 
 
     public Ball build() {
-        return new colBall(xPos, yPos, xVel, yVel, mass, col);
+        return new ColBall(xPos, yPos, xVel, yVel, mass, col);
     }
 }

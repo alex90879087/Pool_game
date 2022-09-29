@@ -105,10 +105,5 @@ public class Reader {
         return null;
     }
 
-    public static void main(String[] args) {
-
-        Reader asd = new Reader();
-
-    }
 
 }

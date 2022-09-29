@@ -2,10 +2,9 @@ package Pool;
 
 import javafx.scene.paint.Paint;
 
-import java.util.List;
 import java.util.Locale;
 
-public class colBall implements Ball {
+public class ColBall implements Ball {
     private double xPos;
     private double yPos;
     private double xVel;
@@ -24,7 +23,7 @@ public class colBall implements Ball {
     private boolean exist;
 
 
-    public colBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
+    public ColBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.xVel = xVel;
@@ -40,8 +39,6 @@ public class colBall implements Ball {
                 (colour.equalsIgnoreCase("blue")) ? new BlueStrategy() : new WhiteStrategy();
 
     }
-
-    public colBall() {}
 
 
     public boolean getMoving() {

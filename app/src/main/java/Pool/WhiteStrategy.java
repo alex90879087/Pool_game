@@ -8,10 +8,12 @@ import static Pool.Reader.parseBall;
 public class WhiteStrategy implements Strategy{
     @Override
     public void check(Ball ball, Table t) {
-        if (((BasicTable) t).getBalls().size() != 1){
+
+
+        if (((BasicTable) t).getBalls().size() > 1){
+            System.out.println("INININN");
+
             ((BasicTable) t).reset();
-
-
         }
         else{
             ((BasicTable) t).setPlaying(false);

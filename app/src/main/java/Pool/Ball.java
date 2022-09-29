@@ -1,5 +1,7 @@
 package Pool;
 
+import java.util.List;
+
 public interface Ball {
 
     double getX();
@@ -8,6 +10,7 @@ public interface Ball {
     double getyVel();
     double getMass();
     double getRadius();
+    void setRadius(double r);
     void setX(double x);
     void setY(double y);
     void setxVel(double xVel);
@@ -16,4 +19,7 @@ public interface Ball {
     String getCol();
     void move(double friction);
     void executeStrat();
+    double getOriginalX();
+    double getOriginalY();
+
 }

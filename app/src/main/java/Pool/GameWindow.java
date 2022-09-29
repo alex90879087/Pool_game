@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class GameWindow {
@@ -68,34 +69,35 @@ public class GameWindow {
 
 //                  can only click cue ball when it is not moving
                     pane.setOnMousePressed(e -> {
-                        if (cueBall.getMoving() == false) {
-                            System.out.println("Testing");
+                        if (cueBall.getMoving() == false && cursorCueBall(e.getX(), e.getY())) {
                             currentLine = new Line(e.getX(), e.getY(), e.getX(), e.getY());
                             pane.getChildren().add(currentLine);
+
+                            pane.setOnMouseDragged(d -> {
+                                if (cueBall.getMoving() == false) {
+                                    if (currentLine == null) {
+                                        currentLine = new Line();
+                                        currentLine.setStartX(startX);
+                                        currentLine.setStartY(startY);
+                                    }
+                                    else {
+                                        currentLine.setEndX(d.getX());
+                                        currentLine.setEndY(d.getY());
+                                    }
+                                }
+                            });
+                            pane.setOnMouseReleased(q -> {
+                                if (cueBall.getMoving() == false) {
+                                    double distance = Math.hypot(startX - q.getX(), startY - q.getY());
+                                    shoot(distance);
+                                    pane.getChildren().remove(currentLine);
+                                }
+                            });
                         }
                     });
 
-                    pane.setOnMouseDragged(e -> {
-                        if (cueBall.getMoving() == false) {
-                            if (currentLine == null) {
-                                currentLine = new Line();
-                                currentLine.setStartX(startX);
-                                currentLine.setStartY(startY);
-                            }
-                            else {
-                                currentLine.setEndX(e.getX());
-                                currentLine.setEndY(e.getY());
-                            }
-                        }
-                    });
 
-                    pane.setOnMouseReleased(e -> {
-                        if (cueBall.getMoving() == false) {
-                            double distance = Math.hypot(startX - e.getX(), startY - e.getY());
-                            shoot(distance);
-                            pane.getChildren().remove(currentLine);
-                        }
-                    });
+
                 }));
 
 
@@ -113,7 +115,7 @@ public class GameWindow {
     public void shoot(double distance) {
 
         // power of the shot
-        double power = (distance < 250) ? 2.5 : (distance < 450) ? 3 : 3.5;
+        double power = (distance < 250) ? 3.5 : (distance < 450) ? 4 : 4.5;
 
         // direction of the mouse dragging (complex number vector)
         this.cueBall.setyVel((-(currentLine.getEndY() - currentLine.getStartY())) / 5 * power);
@@ -124,15 +126,7 @@ public class GameWindow {
 
     private void draw() {
 
-        for (Ball ball: balls) {
-            if (ball.getMoving()) {
-                for (Circle pocket: pockets) {
-                    if (pocket.contains(ball.getX(), ball.getY())) {
-                    }
-                }
-            }
-        }
-
+        inPocket();
         tick();
         SlowDown(this.model.getFriction());
         moves();
@@ -170,19 +164,19 @@ public class GameWindow {
 
             if (ball.getX() + ball.getRadius() > width) {
                 ball.setX(width - ball.getRadius());
-                ball.setxVel(ball.getxVel() * -1);
+                ball.setxVel(ball.getxVel() * -0.7);
             }
             if (ball.getX() - ball.getRadius() < 0) {
                 ball.setX(0 + ball.getRadius());
-                ball.setxVel(ball.getxVel() * -1);
+                ball.setxVel(ball.getxVel() *  -0.7);
             }
             if (ball.getY() + ball.getRadius() > height) {
                 ball.setY(height - ball.getRadius());
-                ball.setyVel(ball.getyVel() * -1);
+                ball.setyVel(ball.getyVel() *  -0.7);
             }
             if (ball.getY() - ball.getRadius() < 0) {
                 ball.setY(0 + ball.getRadius());
-                ball.setyVel(ball.getyVel() * -1);
+                ball.setyVel(ball.getyVel() *  -0.7);
             }
 
             for(Ball ballB: balls) {
@@ -218,8 +212,8 @@ public class GameWindow {
                     ball.setyVel(ball.getyVel() + friction / 10);
                 }
 
-                if (Math.abs(ball.getxVel()) <= 0.05) ball.setxVel(0);
-                if (Math.abs(ball.getyVel()) <= 0.05) ball.setyVel(0);
+                if (Math.abs(ball.getxVel()) <= 0.1) ball.setxVel(0);
+                if (Math.abs(ball.getyVel()) <= 0.1) ball.setyVel(0);
 
             }
         }
@@ -287,13 +281,24 @@ public class GameWindow {
 
     void inPocket() {
 
-        for (Ball ball: balls) {
-            if (ball.getMoving()) {
-                for (Circle pocket: pockets) {
-                    if (pocket.contains(ball.getX(), ball.getY())) {
+        try{
+            for (Ball ball: balls) {
+                if (ball.getMoving()) {
+                    for (Circle pocket: pockets) {
+                        if (pocket.contains(ball.getX(), ball.getY())) {
+                            ball.executeStrat();
+                        }
                     }
                 }
             }
-        }
+        }catch(ConcurrentModificationException e){}
+
+    }
+
+    boolean cursorCueBall(double x, double y) {
+        return (x < cueBall.getX() + cueBall.getRadius() &&
+                x > cueBall.getX() - cueBall.getRadius()) &&
+               (y < cueBall.getY() + cueBall.getRadius() &&
+                y > cueBall.getY() - cueBall.getRadius());
     }
 }

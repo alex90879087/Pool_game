@@ -2,6 +2,7 @@ package Pool;
 
 import javafx.scene.paint.Paint;
 
+import java.util.List;
 import java.util.Locale;
 
 public class colBall implements Ball {
@@ -16,6 +17,11 @@ public class colBall implements Ball {
     private boolean moving;
     private Strategy strat;
 
+    private double originalX;
+    private double originalY;
+
+    private int count = 1;
+
 
     public colBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
         this.xPos = xPos;
@@ -26,11 +32,15 @@ public class colBall implements Ball {
         this.colour = Paint.valueOf(colour.toUpperCase(Locale.ROOT));
         this.col = colour;
         moving = false;
+        this.originalX = xPos;
+        this.originalY = yPos;
 
         strat = (colour.equalsIgnoreCase("red")) ? new RedStrategy() :
                 (colour.equalsIgnoreCase("blue")) ? new BlueStrategy() : new WhiteStrategy();
 
     }
+
+    public colBall() {}
 
     public void setMoving(boolean moving) {this.moving = moving;}
 
@@ -79,6 +89,11 @@ public class colBall implements Ball {
 
     public void setRadius(double raidus) {this.radius = radius;}
 
+    public void setColour(String col) {
+        this.col = col;
+        this.colour = Paint.valueOf(col.toUpperCase(Locale.ROOT));
+    }
+
     public void move(double friction) {
         this.setX((this.getX() + this.getxVel() / 60));
         this.setY((this.getY() +  this.getyVel() / 60));
@@ -87,4 +102,17 @@ public class colBall implements Ball {
     public void executeStrat(){
         strat.check(this);
     }
+
+    @Override
+    public double getOriginalX() {
+        return this.originalX;
+    }
+
+    @Override
+    public double getOriginalY() {
+        return this.originalY;
+    }
+
+    public void setCount() {this.count -= 1;}
+    public double getCount() {return this.count;}
 }

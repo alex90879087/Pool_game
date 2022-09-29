@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface Strategy {
 
-    void check(Ball ball, GameWindow g);
+    void check(Ball ball, Table t);
 }

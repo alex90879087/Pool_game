@@ -103,8 +103,8 @@ public class colBall implements Ball {
         this.setY((this.getY() +  this.getyVel() / 60));
     }
 
-    public void executeStrat(GameWindow g){
-        strat.check(this, g);
+    public void executeStrat(Table t){
+        strat.check(this, t);
     }
 
     @Override
@@ -118,6 +118,7 @@ public class colBall implements Ball {
     }
 
     public void setCount() {this.count -= 1;}
+
     public double getCount() {return this.count;}
 
     public void reset(){

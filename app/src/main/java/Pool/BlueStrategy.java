@@ -4,9 +4,7 @@ import java.util.List;
 
 public class BlueStrategy implements Strategy{
     @Override
-    public void check(Ball ball, GameWindow g) {
-        ball = (colBall) ball;
-
+    public void check(Ball ball, Table t) {
         if (((colBall) ball).getCount() != 0) {
             ((colBall) ball).setOriginalXY();
             ((colBall) ball).setCount();
@@ -14,7 +12,7 @@ public class BlueStrategy implements Strategy{
             ball.setxVel(0);
         }
         else{
-            g.getBalls().remove(ball);
+            ((BasicTable) t).getBalls().remove(ball);
         }
     }
 }

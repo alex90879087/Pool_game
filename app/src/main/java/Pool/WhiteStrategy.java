@@ -7,16 +7,14 @@ import static Pool.Reader.parseBall;
 
 public class WhiteStrategy implements Strategy{
     @Override
-    public void check(Ball ball, GameWindow g) {
-        if (g.getBalls().size() != 1){
-            for (Ball eachBall: g.getBalls()) {
-                ((colBall) eachBall).setOriginalXY();
-                eachBall.setxVel(0);
-                eachBall.setyVel(0);
-            }
+    public void check(Ball ball, Table t) {
+        if (((BasicTable) t).getBalls().size() != 1){
+            ((BasicTable) t).reset();
+
+
         }
         else{
-            g.setStatus(false);
+            ((BasicTable) t).setPlaying(false);
         }
     }
 }

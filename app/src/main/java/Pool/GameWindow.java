@@ -39,13 +39,8 @@ public class GameWindow {
     private List<Ball> balls;
     private boolean status;
 
-    public boolean isStatus() {
-        return status;
-    }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+
 
     // to record the start position when click on the cue ball
     private double startX;
@@ -68,7 +63,7 @@ public class GameWindow {
         this.cueBall = (colBall) this.model.getCueBall();
         this.balls = model.getBalls();
         this.pockets = model.getPockets();
-        this.status = true;
+        this.status = model.getPlaying();
 
         // pane is the lowest level in the hierarchy in this case
         pane.getChildren().add(canvas);
@@ -80,10 +75,11 @@ public class GameWindow {
 
 
                     this.draw();
-
 //                  can only click cue ball when it is not moving
                     pane.setOnMousePressed(e -> {
-                        if (cueBall.getMoving() == false && cursorCueBall(e.getX(), e.getY())) {
+
+                        if (model.getCueBall().getMoving() == false && cursorCueBall(e.getX(), e.getY())) {
+
                             currentLine = new Line(e.getX(), e.getY(), e.getX(), e.getY());
                             pane.getChildren().add(currentLine);
 
@@ -124,11 +120,7 @@ public class GameWindow {
         }
     }
 
-    void moves() {
-        for (Ball ball: balls) {
-            if (ball.getMoving()) ball.move(model.getFriction());
-        }
-    }
+
 
     // distance of start and end point is used to calculate the power of the shot
     public void shoot(double distance) {
@@ -145,10 +137,11 @@ public class GameWindow {
 
     private void draw() {
 
-        inPocket();
+        model.inPocket();
         tick();
-        SlowDown(this.model.getFriction());
-        moves();
+        model.SlowDown(this.model.getFriction());
+        model.moves();
+        this.cueBall = (colBall) this.model.getCueBall();
 
         gc.clearRect(0,0, width, height);
         gc.setFill(model.getColour());
@@ -178,8 +171,7 @@ public class GameWindow {
     }
 
     void tick() {
-
-        for(Ball ball: balls) {
+        for(Ball ball: model.getBalls()) {
 
             if (ball.getX() + ball.getRadius() > width) {
                 ball.setX(width - ball.getRadius());
@@ -198,45 +190,17 @@ public class GameWindow {
                 ball.setyVel(ball.getyVel() *  -0.7);
             }
 
-            for(Ball ballB: balls) {
+            for(Ball ballB: model.getBalls()) {
                 if (checkCollision(ball, ballB)) {
                     handleCollision(ball, ballB);
                 }
             }
         }
-
-
     }
 
-    void SlowDown(double friction) {
 
-        for (Ball ball: balls) {
-            if (ball.getMoving()) {
 
-                double coeX;
-                double coeY;
-                coeX = ball.getxVel() / 5;
 
-                // slow down x
-                if (ball.getxVel() > 0) {
-                    ball.setxVel(ball.getxVel() - friction / 10);
-                }
-                if (ball.getxVel() < 0) {
-                    ball.setxVel(ball.getxVel() + friction / 10);
-                }
-                if (ball.getyVel() > 0) {
-                    ball.setyVel(ball.getyVel() - friction / 10);
-                }
-                if (ball.getyVel() < 0) {
-                    ball.setyVel(ball.getyVel() + friction / 10);
-                }
-
-                if (Math.abs(ball.getxVel()) <= 0.1) ball.setxVel(0);
-                if (Math.abs(ball.getyVel()) <= 0.1) ball.setyVel(0);
-
-            }
-        }
-    }
 
     private boolean checkCollision(Ball ballA, Ball ballB) {
         if (ballA == ballB) {
@@ -298,32 +262,11 @@ public class GameWindow {
         ballB.setyVel(ballB.getyVel() + deltaVB.getY());
     }
 
-    void inPocket() {
-
-        try{
-            for (Ball ball: balls) {
-                if (ball.getMoving()) {
-                    for (Circle pocket: pockets) {
-                        if (pocket.contains(ball.getX(), ball.getY())) {
-                            ball.executeStrat(this);
-                            if (!ball.exist()) balls.remove(ball);
-                        }
-                    }
-                }
-            }
-        }catch(ConcurrentModificationException e){}
-
-    }
-
     boolean cursorCueBall(double x, double y) {
         return (x < cueBall.getX() + cueBall.getRadius() &&
                 x > cueBall.getX() - cueBall.getRadius()) &&
                (y < cueBall.getY() + cueBall.getRadius() &&
                 y > cueBall.getY() - cueBall.getRadius());
-    }
-
-    void reset() {
-        balls = parseBall();
     }
 
 

@@ -39,9 +39,6 @@ public class GameWindow {
     private List<Ball> balls;
     private boolean status;
 
-
-
-
     // to record the start position when click on the cue ball
     private double startX;
     private double startY;
@@ -75,6 +72,7 @@ public class GameWindow {
                 a -> {
 
                     this.draw();
+
 //                  can only click cue ball when it is not moving
                     pane.setOnMousePressed(e -> {
 

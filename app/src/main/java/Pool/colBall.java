@@ -14,7 +14,6 @@ public class colBall implements Ball {
     private double radius = 12;
     private Paint colour;
     private String col;
-    private boolean moving;
     private Strategy strat;
 
     private double originalX;
@@ -33,7 +32,6 @@ public class colBall implements Ball {
         this.mass = mass;
         this.colour = Paint.valueOf(colour.toUpperCase(Locale.ROOT));
         this.col = colour;
-        moving = false;
         this.originalX = xPos;
         this.originalY = yPos;
 
@@ -46,7 +44,6 @@ public class colBall implements Ball {
 
     public colBall() {}
 
-    public void setMoving(boolean moving) {this.moving = moving;}
 
     public boolean getMoving() {
         return (xVel == 0 && yVel == 0) ? false : true;

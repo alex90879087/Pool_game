@@ -70,8 +70,10 @@ public class GameWindow {
     }
 
     void run() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(17),
+        Timeline timeline = new Timeline();
+        KeyFrame kf = new KeyFrame(Duration.millis(17),
                 a -> {
+
                     this.draw();
 //                  can only click cue ball when it is not moving
                     pane.setOnMousePressed(e -> {
@@ -103,27 +105,25 @@ public class GameWindow {
                             });
                         }
                     });
-
-                }));
-
+                if (model.getBalls().size() == 1) {
+                    timeline.stop();
+                    System.out.println("YOU　WIN!");
+                }
+                });
+        timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.millis(17)));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        if (!status) {
-            System.out.println("Game over");
-            timeline.stop();
-        }
     }
 
 
 
-    // distance of start and end point is used to calculate the power of the shot
     public void shoot(double distance) {
 
         // power of the shot
         double power = (distance < 250) ? 3.5 : (distance < 450) ? 4 : 4.5;
 
-        // direction of the mouse dragging (complex number vector)
+        // complex number vector
         this.cueBall.setyVel((-(currentLine.getEndY() - currentLine.getStartY())) / 5 * power);
         this.cueBall.setxVel((-(currentLine.getEndX() - currentLine.getStartX())) / 5 * power);
 

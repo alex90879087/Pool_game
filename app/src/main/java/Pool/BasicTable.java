@@ -133,28 +133,22 @@ public class BasicTable implements Table {
 
         for (Ball ball: balls) {
             if (ball.getMoving()) {
-
-                double coeX;
-                double coeY;
-                coeX = ball.getxVel() / 5;
-
                 // slow down x
-                if (ball.getxVel() > 0) {
-                    ball.setxVel(ball.getxVel() - friction / 10);
-                }
-                if (ball.getxVel() < 0) {
-                    ball.setxVel(ball.getxVel() + friction / 10);
-                }
-                if (ball.getyVel() > 0) {
-                    ball.setyVel(ball.getyVel() - friction / 10);
-                }
-                if (ball.getyVel() < 0) {
-                    ball.setyVel(ball.getyVel() + friction / 10);
-                }
+                if (ball.getxVel() > 0) ball.setxVel(ball.getxVel() - friction / 10);
+
+
+                if (ball.getxVel() < 0) ball.setxVel(ball.getxVel() + friction / 10);
+
+
+                if (ball.getyVel() > 0) ball.setyVel(ball.getyVel() - friction / 10);
+
+
+                if (ball.getyVel() < 0) ball.setyVel(ball.getyVel() + friction / 10);
+
 
                 if (Math.abs(ball.getxVel()) <= 0.1) ball.setxVel(0);
-                if (Math.abs(ball.getyVel()) <= 0.1) ball.setyVel(0);
 
+                if (Math.abs(ball.getyVel()) <= 0.1) ball.setyVel(0);
             }
         }
     }

@@ -287,6 +287,7 @@ public class GameWindow {
                     for (Circle pocket: pockets) {
                         if (pocket.contains(ball.getX(), ball.getY())) {
                             ball.executeStrat();
+                            if (!ball.exist()) balls.remove(ball);
                         }
                     }
                 }

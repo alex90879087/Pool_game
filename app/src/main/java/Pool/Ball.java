@@ -21,5 +21,8 @@ public interface Ball {
     void executeStrat();
     double getOriginalX();
     double getOriginalY();
+    void reset();
+    boolean exist();
+
 
 }

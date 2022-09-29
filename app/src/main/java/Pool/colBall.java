@@ -22,6 +22,8 @@ public class colBall implements Ball {
 
     private int count = 1;
 
+    private boolean exist;
+
 
     public colBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
         this.xPos = xPos;
@@ -34,6 +36,8 @@ public class colBall implements Ball {
         moving = false;
         this.originalX = xPos;
         this.originalY = yPos;
+
+        exist = true;
 
         strat = (colour.equalsIgnoreCase("red")) ? new RedStrategy() :
                 (colour.equalsIgnoreCase("blue")) ? new BlueStrategy() : new WhiteStrategy();
@@ -115,4 +119,16 @@ public class colBall implements Ball {
 
     public void setCount() {this.count -= 1;}
     public double getCount() {return this.count;}
+
+    public void reset(){
+        exist = false;
+    }
+
+    @Override
+    public boolean exist() {
+        return this.exist;
+    }
+
+
 }
+

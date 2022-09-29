@@ -10,9 +10,12 @@ public class BlueStrategy implements Strategy{
         if (((colBall) ball).getCount() != 0) {
             ball.setX(ball.getOriginalX());
             ball.setY(ball.getOriginalY());
+            ((colBall) ball).setCount();
+            ball.setyVel(0);
+            ball.setxVel(0);
         }
         else{
-
+            ball.reset();
         }
     }
 }

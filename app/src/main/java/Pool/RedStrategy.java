@@ -8,7 +8,7 @@ public class RedStrategy implements Strategy{
 
         // check if ball is in the pockets
 
-        ball.setX(10000);
+        ball.reset();
 
     }
 }

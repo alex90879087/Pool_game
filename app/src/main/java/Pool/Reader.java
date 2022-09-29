@@ -41,7 +41,7 @@ public class Reader {
 
             Long tableY = (Long) ((JSONObject) jTable.get("size")).get("y");
 
-            TableFactory tableF = new BasicTableFactory();
+            TableFactory tableF = new ConcreteTableFactory();
 
             return tableF.create(tableX, tableY, tableFriction, tableColour);
 
@@ -65,7 +65,7 @@ public class Reader {
 
         ConcreteBallBuilder cb = new ConcreteBallBuilder();
 
-        BasicBallFactory ballFactory = new BasicBallFactory(cb);
+        ConcreteBasicBallFactory ballFactory = new ConcreteBasicBallFactory(cb);
 
         try{
             Object object = parser.parse(new FileReader(path));

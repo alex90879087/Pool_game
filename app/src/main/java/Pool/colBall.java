@@ -34,8 +34,7 @@ public class colBall implements Ball {
         this.col = colour;
         this.originalX = xPos;
         this.originalY = yPos;
-
-        exist = true;
+        this.exist = true;
 
         strat = (colour.equalsIgnoreCase("red")) ? new RedStrategy() :
                 (colour.equalsIgnoreCase("blue")) ? new BlueStrategy() : new WhiteStrategy();

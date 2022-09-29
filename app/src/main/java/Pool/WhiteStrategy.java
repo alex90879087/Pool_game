@@ -11,8 +11,6 @@ public class WhiteStrategy implements Strategy{
 
 
         if (((BasicTable) t).getBalls().size() > 1){
-            System.out.println("INININN");
-
             ((BasicTable) t).reset();
         }
         else{

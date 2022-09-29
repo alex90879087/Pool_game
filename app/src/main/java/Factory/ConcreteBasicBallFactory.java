@@ -2,12 +2,12 @@ package Factory;
 
 import Pool.Ball;
 
-public class BasicBallFactory implements BallFactory {
+public class ConcreteBasicBallFactory implements BallFactory {
 
     private ConcreteBallBuilder cb = new ConcreteBallBuilder();
 
 
-    public BasicBallFactory(ConcreteBallBuilder cb) {
+    public ConcreteBasicBallFactory(ConcreteBallBuilder cb) {
         this.cb = cb;
     }
 

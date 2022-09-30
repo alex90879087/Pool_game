@@ -99,7 +99,6 @@ public class Reader {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
-
         }
         return null;
     }

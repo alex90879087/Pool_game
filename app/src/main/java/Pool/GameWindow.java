@@ -65,6 +65,8 @@ public class GameWindow {
                 a -> {
 
                     this.draw();
+                    if (!model.getCueBall().getMoving()) System.out.println("Hit cue ball!");
+                    else System.out.println("Not yet");
 
                     pane.setOnMousePressed(e -> {
 

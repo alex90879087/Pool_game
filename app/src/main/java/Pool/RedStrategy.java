@@ -7,7 +7,6 @@ public class RedStrategy implements Strategy{
     public void check(Ball ball, Table t) {
 
         // check if ball is in the pockets
-
         ball.reset();
     }
 }

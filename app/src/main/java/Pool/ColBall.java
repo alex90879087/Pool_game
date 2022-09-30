@@ -22,7 +22,6 @@ public class ColBall implements Ball {
 
     private boolean exist;
 
-
     public ColBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -40,6 +39,25 @@ public class ColBall implements Ball {
 
     }
 
+    public void move(double friction) {
+        this.setX((this.getX() + this.getxVel() / 60));
+        this.setY((this.getY() +  this.getyVel() / 60));
+    }
+
+    public void executeStrat(Table t){
+        strat.check(this, t);
+    }
+
+    public void reset(){
+        exist = false;
+    }
+
+    // below is getter and setter
+
+    @Override
+    public boolean exist() {
+        return this.exist;
+    }
 
     public boolean getMoving() {
         return (xVel == 0 && yVel == 0) ? false : true;
@@ -91,15 +109,6 @@ public class ColBall implements Ball {
         this.colour = Paint.valueOf(col.toUpperCase(Locale.ROOT));
     }
 
-    public void move(double friction) {
-        this.setX((this.getX() + this.getxVel() / 60));
-        this.setY((this.getY() +  this.getyVel() / 60));
-    }
-
-    public void executeStrat(Table t){
-        strat.check(this, t);
-    }
-
     @Override
     public double getOriginalX() {
         return this.originalX;
@@ -112,16 +121,7 @@ public class ColBall implements Ball {
 
     public void setCount() {this.count -= 1;}
 
-    public double getCount() {return this.count;}
-
-    public void reset(){
-        exist = false;
-    }
-
-    @Override
-    public boolean exist() {
-        return this.exist;
-    }
+    public int getCount() {return this.count;}
 
     public void setOriginalXY() {
         this.xPos = originalX;

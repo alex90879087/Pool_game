@@ -19,9 +19,9 @@ public class BasicTable implements Table {
     private double friction;
     private Long sizeX;
     private Long sizeY;
-    private List<Ball> balls;
-    private Ball cueBall;
 
+    private Ball cueBall;
+    private List<Ball> balls;
     private List<Circle> pockets = new ArrayList<>();
     private List<Ball> originalBalls;
     private boolean playing;
@@ -242,7 +242,7 @@ public class BasicTable implements Table {
     public List<Ball> getBalls() {
         return balls;
     }
-    
+
     public Ball getCueBall() {return this.cueBall;}
 
 }

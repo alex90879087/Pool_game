@@ -19,12 +19,12 @@ public class ConcreteBallBuilder implements BallBuilder {
 
     @Override
     public void setX(double x) {
-        this.xPos = x;
+        this.xPos = Math.max(0,x);
     }
 
     @Override
     public void setY(double y) {
-        this.yPos = y;
+        this.yPos = Math.max(0,y);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ConcreteBallBuilder implements BallBuilder {
 
     @Override
     public void setMass(double mass) {
-        this.mass = mass;
+        this.mass = Math.max(0,mass);
     }
 
     @Override

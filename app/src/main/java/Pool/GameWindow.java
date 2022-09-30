@@ -35,7 +35,7 @@ public class GameWindow {
     private Pane pane;
     private  double height;
     private  double  width;
-    private Line currentLine;
+    private Line visualCue;
     private List<Ball> balls;
 
     // to record the start position when click on the cue ball
@@ -59,7 +59,7 @@ public class GameWindow {
         pane.getChildren().add(canvas);
     }
 
-    void run() {
+    public void run() {
         Timeline timeline = new Timeline();
         KeyFrame kf = new KeyFrame(Duration.millis(17),
                 a -> {
@@ -70,19 +70,19 @@ public class GameWindow {
 
                         if (!model.getCueBall().getMoving() && cursorCueBall(e.getX(), e.getY())) {
 
-                            currentLine = new Line(e.getX(), e.getY(), e.getX(), e.getY());
-                            pane.getChildren().add(currentLine);
+                            visualCue = new Line(e.getX(), e.getY(), e.getX(), e.getY());
+                            pane.getChildren().add(visualCue);
 
                             pane.setOnMouseDragged(d -> {
                                 if (!cueBall.getMoving()) {
-                                    if (currentLine == null) {
-                                        currentLine = new Line();
-                                        currentLine.setStartX(startX);
-                                        currentLine.setStartY(startY);
+                                    if (visualCue == null) {
+                                        visualCue = new Line();
+                                        visualCue.setStartX(startX);
+                                        visualCue.setStartY(startY);
                                     }
                                     else {
-                                        currentLine.setEndX(d.getX());
-                                        currentLine.setEndY(d.getY());
+                                        visualCue.setEndX(d.getX());
+                                        visualCue.setEndY(d.getY());
                                     }
                                 }
                             });
@@ -90,11 +90,13 @@ public class GameWindow {
                                 if (!cueBall.getMoving()) {
                                     double distance = Math.hypot(startX - q.getX(), startY - q.getY());
                                     shoot(distance);
-                                    pane.getChildren().remove(currentLine);
+                                    pane.getChildren().remove(visualCue);
                                 }
                             });
                         }
                     });
+
+                    // player wins when only cue ball left
                 if (model.getBalls().size() == 1) {
                     timeline.stop();
                     System.out.println("YOU　WIN!");
@@ -105,18 +107,15 @@ public class GameWindow {
         timeline.play();
     }
 
-
-
     public void shoot(double distance) {
 
         // power of the shot
         double power = (distance < 250) ? 3.5 : (distance < 450) ? 4 : 4.5;
 
         // complex number vector
-        this.cueBall.setyVel((-(currentLine.getEndY() - currentLine.getStartY())) / 5 * power);
-        this.cueBall.setxVel((-(currentLine.getEndX() - currentLine.getStartX())) / 5 * power);
+        this.cueBall.setyVel((-(visualCue.getEndY() - visualCue.getStartY())) / 5 * power);
+        this.cueBall.setxVel((-(visualCue.getEndX() - visualCue.getStartX())) / 5 * power);
     }
-
 
     private void draw() {
 
@@ -153,9 +152,8 @@ public class GameWindow {
         return this.scene;
     }
 
-
     // check if cursor enters cue ball area
-    boolean cursorCueBall(double x, double y) {
+    public boolean cursorCueBall(double x, double y) {
         return (x < cueBall.getX() + cueBall.getRadius() &&
                 x > cueBall.getX() - cueBall.getRadius()) &&
                (y < cueBall.getY() + cueBall.getRadius() &&

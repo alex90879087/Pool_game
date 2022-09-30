@@ -16,9 +16,6 @@ public class ConcreteBallBuilder implements BallBuilder {
 
     public String getCol(){ return col;}
 
-    @Override
-    public void reset() {}
-
 
     @Override
     public void setX(double x) {

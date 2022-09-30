@@ -187,7 +187,6 @@ public class BasicTable implements Table {
         return Math.abs(ballA.getX() - ballB.getX()) < ballA.getRadius() + ballB.getRadius() &&
                 Math.abs(ballA.getY() - ballB.getY()) < ballA.getRadius() + ballB.getRadius();
     }
-
     private void handleCollision(Ball ballA, Ball ballB) {
 
         //Properties of two colliding balls

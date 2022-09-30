@@ -18,8 +18,7 @@ public class Reader {
     private BallBuilder builder;
     private static String path = "app/src/main/resources/config.json";
 
-    public List<Ball> getBalls() {return balls;}
-//C:\Users\alex9\Pool\app\src\main\resources\config.json
+    //  C:\Users\alex9\Pool\app\src\main\resources\config.json
     private static List<Ball> balls = new ArrayList<>();
 
     public static Table parseTable() {

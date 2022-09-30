@@ -28,9 +28,9 @@ public class Reader {
         try{
             Object obj = parser.parse(new FileReader(path));
 
-            JSONObject jobj = (JSONObject) obj;
+            JSONObject jObj = (JSONObject) obj;
 
-            JSONObject jTable = (JSONObject) jobj.get("Table");
+            JSONObject jTable = (JSONObject) jObj.get("Table");
 
             String tableColour = (String) jTable.get("colour");
 

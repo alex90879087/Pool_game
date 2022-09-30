@@ -9,7 +9,6 @@ public class WhiteStrategy implements Strategy{
     @Override
     public void check(Ball ball, Table t) {
 
-
         if (((BasicTable) t).getBalls().size() > 1){
             ((BasicTable) t).reset();
         }

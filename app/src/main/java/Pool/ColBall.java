@@ -14,12 +14,9 @@ public class ColBall implements Ball {
     private Paint colour;
     private String col;
     private Strategy strat;
-
     private double originalX;
     private double originalY;
-
     private int count = 1;
-
     private boolean exist;
 
     public ColBall (double xPos, double yPos, double xVel, double yVel, double mass, String colour) {
@@ -39,11 +36,13 @@ public class ColBall implements Ball {
 
     }
 
+    // moves ball based on its x/y velocity
     public void move(double friction) {
         this.setX((this.getX() + this.getxVel() / 60));
         this.setY((this.getY() +  this.getyVel() / 60));
     }
 
+    // execute Strategy of each ball
     public void executeStrat(Table t){
         strat.check(this, t);
     }
@@ -104,11 +103,6 @@ public class ColBall implements Ball {
 
     public void setRadius(double raidus) {this.radius = radius;}
 
-    public void setColour(String col) {
-        this.col = col;
-        this.colour = Paint.valueOf(col.toUpperCase(Locale.ROOT));
-    }
-
     @Override
     public double getOriginalX() {
         return this.originalX;
@@ -127,7 +121,5 @@ public class ColBall implements Ball {
         this.xPos = originalX;
         this.yPos = originalY;
     }
-
-
 }
 

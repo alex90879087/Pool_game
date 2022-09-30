@@ -2,27 +2,14 @@ package Pool;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import javafx.scene.control.Label;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
-
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import static Pool.Reader.parseBall;
@@ -33,8 +20,8 @@ public class GameWindow {
     private Scene scene;
     private BasicTable model;
     private Pane pane;
-    private  double height;
-    private  double  width;
+    private double height;
+    private double  width;
     private Line visualCue;
     private List<Ball> balls;
 
@@ -65,8 +52,6 @@ public class GameWindow {
                 a -> {
 
                     this.draw();
-                    if (!model.getCueBall().getMoving()) System.out.println("Hit cue ball!");
-                    else System.out.println("Not yet");
 
                     pane.setOnMousePressed(e -> {
 

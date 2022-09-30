@@ -15,7 +15,7 @@ public class BasicTable implements Table {
     private String col;
 
     // ratio of ball and table -> to decide radius of balls
-    private  double ratio = (262 * 150) / (Math.pow(5.715, 2) * Math.PI) ;
+    private double ratio = (262 * 150) / (Math.pow(5.715, 2) * Math.PI) ;
     private double friction;
     private Long sizeX;
     private Long sizeY;
@@ -36,7 +36,6 @@ public class BasicTable implements Table {
         this.friction = friction;
         this.col = col;
         this.colour = Paint.valueOf(col);
-
 
         setBallsAndCheck();
 
@@ -72,7 +71,6 @@ public class BasicTable implements Table {
 
     public void reset(){
         this.balls = parseBall();
-        System.out.println(balls.size());
         findCueBall();
     }
 

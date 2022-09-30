@@ -15,17 +15,12 @@ public class BasicTable implements Table {
     private String col;
 
     // ratio of ball and table -> to decide radius of balls
-    public  double ratio = (262 * 150) / (Math.pow(5.715, 2) * Math.PI) ;
+    private  double ratio = (262 * 150) / (Math.pow(5.715, 2) * Math.PI) ;
     private double friction;
     private Long sizeX;
     private Long sizeY;
     private List<Ball> balls;
     private Ball cueBall;
-
-    public List<Ball> getBalls() {
-        return balls;
-    }
-    public Ball getCueBall() {return this.cueBall;}
 
     private List<Circle> pockets = new ArrayList<>();
     private List<Ball> originalBalls;
@@ -75,52 +70,6 @@ public class BasicTable implements Table {
         originalBalls = parseBall();
     }
 
-    public List<Circle> getPockets() {return pockets;}
-
-    public double getFriction() { return this.friction;}
-
-    public Long getX() {
-        return sizeX;
-    }
-
-    public Long getY() {
-        return sizeY;
-    }
-
-    public String getCol() {
-        return col;
-    }
-
-    public Paint getColour() {return colour;}
-
-    public void moves() {
-        for (Ball ball: balls) {
-            if (ball.getMoving()) ball.move(this.getFriction());
-        }
-    }
-
-    public void inPocket() {
-
-        try{
-            for (Ball ball: balls) {
-                if (ball.getMoving()) {
-                    for (Circle pocket: pockets) {
-                        if (pocket.contains(ball.getX(), ball.getY())) {
-                            ball.executeStrat(this);
-                            if (!ball.exist()) balls.remove(ball);
-                        }
-                    }
-                }
-            }
-        }catch(ConcurrentModificationException e){}
-
-    }
-
-    public void setPlaying(boolean status) {
-        this.playing = status;
-    }
-    public boolean getPlaying() {return this.playing;}
-
     public void reset(){
         this.balls = parseBall();
         System.out.println(balls.size());
@@ -152,6 +101,7 @@ public class BasicTable implements Table {
             }
         }
     }
+
     public void tick() {
         for(Ball ball: this.getBalls()) {
 
@@ -179,6 +129,7 @@ public class BasicTable implements Table {
             }
         }
     }
+
     private boolean checkCollision(Ball ballA, Ball ballB) {
         if (ballA == ballB) {
             return false;
@@ -187,6 +138,7 @@ public class BasicTable implements Table {
         return Math.abs(ballA.getX() - ballB.getX()) < ballA.getRadius() + ballB.getRadius() &&
                 Math.abs(ballA.getY() - ballB.getY()) < ballA.getRadius() + ballB.getRadius();
     }
+
     private void handleCollision(Ball ballA, Ball ballB) {
 
         //Properties of two colliding balls
@@ -237,5 +189,60 @@ public class BasicTable implements Table {
         ballB.setxVel(ballB.getxVel() + deltaVB.getX());
         ballB.setyVel(ballB.getyVel() + deltaVB.getY());
     }
+
+    public void moves() {
+        for (Ball ball: balls) {
+            if (ball.getMoving()) ball.move(this.getFriction());
+        }
+    }
+
+    public void inPocket() {
+
+        try{
+            for (Ball ball: balls) {
+                if (ball.getMoving()) {
+                    for (Circle pocket: pockets) {
+                        if (pocket.contains(ball.getX(), ball.getY())) {
+                            ball.executeStrat(this);
+                            if (!ball.exist()) balls.remove(ball);
+                        }
+                    }
+                }
+            }
+        }catch(ConcurrentModificationException e){}
+
+    }
+
+    // below is setter and getter
+
+    public List<Circle> getPockets() {return pockets;}
+
+    public double getFriction() { return this.friction;}
+
+    public Long getX() {
+        return sizeX;
+    }
+
+    public Long getY() {
+        return sizeY;
+    }
+
+    public String getCol() {
+        return col;
+    }
+
+    public Paint getColour() {return colour;}
+
+    public void setPlaying(boolean status) {
+        this.playing = status;
+    }
+
+    public boolean getPlaying() {return this.playing;}
+
+    public List<Ball> getBalls() {
+        return balls;
+    }
+    
+    public Ball getCueBall() {return this.cueBall;}
 
 }

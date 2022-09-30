@@ -37,17 +37,13 @@ public class GameWindow {
     private  double  width;
     private Line currentLine;
     private List<Ball> balls;
-    private boolean status;
 
     // to record the start position when click on the cue ball
     private double startX;
     private double startY;
 
     private ColBall cueBall;
-    private List<Circle> pockets = new ArrayList<>();
 
-    public List<Ball> getBalls() { return balls;}
-    public void setBalls(List<Ball> balls) {this.balls = balls;}
 
     GameWindow(BasicTable table){
         this.model = table;
@@ -59,10 +55,7 @@ public class GameWindow {
         gc = canvas.getGraphicsContext2D();
         this.cueBall = (ColBall) this.model.getCueBall();
         this.balls = model.getBalls();
-        this.pockets = model.getPockets();
-        this.status = model.getPlaying();
 
-        // pane is the lowest level in the hierarchy in this case
         pane.getChildren().add(canvas);
     }
 
@@ -73,16 +66,15 @@ public class GameWindow {
 
                     this.draw();
 
-//                  can only click cue ball when it is not moving
                     pane.setOnMousePressed(e -> {
 
-                        if (model.getCueBall().getMoving() == false && cursorCueBall(e.getX(), e.getY())) {
+                        if (!model.getCueBall().getMoving() && cursorCueBall(e.getX(), e.getY())) {
 
                             currentLine = new Line(e.getX(), e.getY(), e.getX(), e.getY());
                             pane.getChildren().add(currentLine);
 
                             pane.setOnMouseDragged(d -> {
-                                if (cueBall.getMoving() == false) {
+                                if (!cueBall.getMoving()) {
                                     if (currentLine == null) {
                                         currentLine = new Line();
                                         currentLine.setStartX(startX);
@@ -95,7 +87,7 @@ public class GameWindow {
                                 }
                             });
                             pane.setOnMouseReleased(q -> {
-                                if (cueBall.getMoving() == false) {
+                                if (!cueBall.getMoving()) {
                                     double distance = Math.hypot(startX - q.getX(), startY - q.getY());
                                     shoot(distance);
                                     pane.getChildren().remove(currentLine);
@@ -111,7 +103,6 @@ public class GameWindow {
         timeline.getKeyFrames().addAll(kf, new KeyFrame(Duration.millis(17)));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
     }
 
 
@@ -124,13 +115,14 @@ public class GameWindow {
         // complex number vector
         this.cueBall.setyVel((-(currentLine.getEndY() - currentLine.getStartY())) / 5 * power);
         this.cueBall.setxVel((-(currentLine.getEndX() - currentLine.getStartX())) / 5 * power);
-
     }
 
 
     private void draw() {
 
         model.inPocket();
+        // update to new cueBall's memory address if necessary (when cue ball fall into pockets and whole set of ball get reset,
+        // which done by parseBall() that returns "new" set of ball)
         this.cueBall = (ColBall) this.model.getCueBall();
         model.tick();
         model.SlowDown(this.model.getFriction());
@@ -140,15 +132,13 @@ public class GameWindow {
         gc.setFill(model.getColour());
         gc.fillRect(0,0, model.getX(),model.getY());
 
-
-        for (Circle c: this.pockets) {
+        for (Circle c: model.getPockets()) {
             gc.setFill(Paint.valueOf("BLACK"));
             gc.fillOval(c.getCenterX() - c.getRadius(),
                     c.getCenterY() - c.getRadius(),
                     c.getRadius() * 2,
                     c.getRadius() * 2);
         }
-
 
         for (Ball ball: model.getBalls()){
             gc.setFill(((ColBall) ball).getColour());
@@ -163,6 +153,8 @@ public class GameWindow {
         return this.scene;
     }
 
+
+    // check if cursor enters cue ball area
     boolean cursorCueBall(double x, double y) {
         return (x < cueBall.getX() + cueBall.getRadius() &&
                 x > cueBall.getX() - cueBall.getRadius()) &&
